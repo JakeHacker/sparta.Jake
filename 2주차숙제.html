@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <!-- style -->
+    <style type="text/css">
+        * {
+            font-family: 'Stylish', sans-serif;
+        }
+
+        .wrap {
+            width: 700px;
+            margin: auto;
+            text-align: center;
+
+            padding: 40px;
+        }
+
+        .image {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .offer_name {
+            text-align: left;
+            padding: 20px;
+        }
+
+        .rate_style{
+            text-align: left;
+            color: red;
+        }
+    </style>
+
+    <script>
+        function hey() {
+            let name = $('#name').val();
+            let quantity = $('#quantity').val();
+            let address = $('#address').val();
+            let phonenumber = $('#phonenumber').val();
+
+            if (name == "") {
+                alert("이름을 입력해주세요.")
+            } else if (quantity == "") {
+                alert("수량을 입력해주세요.")
+            } else if (address == "") {
+                alert("주소를 입력해주세요.")
+            } else if (phonenumber == "") {
+                alert("전화번호를 입력해주세요.")
+            } else {
+                alert("주문이 완료되었습니다. 1일1깡!");
+            }
+        }
+    </script>
+
+<script>
+    $(document).ready(function() {
+      $.ajax({
+        type: "GET",
+        url:"https://api.manana.kr/exchange/rate.json",
+        data: {},
+        success: function(response) {
+          let rate = response[1]["rate"];
+          // console.log(rate);
+          $('#rate').text(`원-달러 환율: ${rate}`)
+        },
+      });
+    })
+  </script>
+
+</head>
+
+<body>
+    <div class="wrap">
+
+        <div class="image">
+            <img src="https://img.hankyung.com/photo/202005/BF.22633571.1.jpg" />
+        </div>
+
+        <div class="offer_name">
+            <h1>화려한 조명이 나를 감싸네</h1>
+            <h5>가격 : 무료 / 1일1깡</h5>
+            <p>
+                <p> 비 형은 하고싶은 거 다하고 사네 :) </p>
+                <p> 가랑이를 잡았나요?(O)</p>
+                <p> 꾸러기 표정을 지었나요?(O)</p>
+            </p>
+        </div>
+
+        <div class="rate_style">
+        <p id='rate'></p>
+        </div>
+
+<div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">주문자 이름</span>
+            </div>
+            <input id="name" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">수량</label>
+            </div>
+            <select class="custom-select" id="quantity">
+                <option selected></option>
+                <option value="1">1+1</option>
+                <option value="2">2+2</option>
+                <option value="3">그냥 사지마</option>
+            </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">주소</span>
+            </div>
+            <input id="address" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">전화번호</span>
+            </div>
+            <input id="phonenumber" type="text" class="form-control" aria-label="Username"
+                aria-describedby="basic-addon1">
+        </div>
+
+        <div class="order">
+            <button onclick="hey()" type="button" class="btn btn-primary">주문하기</button>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

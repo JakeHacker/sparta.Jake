@@ -1,101 +1,137 @@
-<!doctype html>
-<html lang="ko">
 
-<head>
-    <meta charset="UTF-8">
-    <title>JQuery 연습하고 가기!</title>
-    <!-- JQuery를 import 합니다 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
 
-    <style type="text/css">
-        div.question-box {
-            margin: 10px 0 20px 0;
-        }
+    <title>바베큐샵</title>
 
-        table {
-            border: 1px solid;
-            border-collapse: collapse;
-        }
+    <style>
+      .wrap_img {
+        margin: 10px auto;
+        width: 650px;
+      }
 
-        td,
-        th {
-            padding: 10px;
-            border: 1px solid;
-        }
+      .wrap_form {
+        margin: 10px auto;
+        width: 700px;
+      }
+
+      .wrap_submit {
+        margin: 50px auto;
+        /* padding: 100px; */
+        width: 100px;
+      }
     </style>
-
     <script>
-        function q1() {
-
-            $('#names-q1').empty()
-            // 여기에 코드를 입력하세요
-            $.ajax({
-                type: "GET", // GET 방식으로 요청한다.
-                url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/bikeList/1/99",
-                data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
-                success: function (response) { // 서버에서 준 결과를 response라는 변수에 담음
-                    //모든 구의 이름
-                    //그 구의 미세먼지 값
-                    let data_list = response['rentBikeStatus']['row'] // response 라는 변수의 "그룹1""그룹2"를 리스트로 지정해준다. 
-                    for (let i = 0; i < data_list.length; i++) {
-
-                        let stationName = data_list[i]['stationName']
-                        let rackTotalCount = data_list[i]['rackTotCnt']
-                        let parkingBikeTotalCount = data_list[i]['parkingBikeTotCnt']
-
-                        let html_temp = `<tr>
-                                        <td>${stationName}</td>
-                                        <td>${rackTotalCount}</td>
-                                        <td>${parkingBikeTotalCount}</td>
-                                        </tr>`
-
-                        $('#names-q1').append(html_temp)
-                    }
-                }
-            })
-
-        }
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url:"https://api.manana.kr/exchange/rate.json",
+          data: {},
+          success: function(response) {
+            let rate = response[1]["rate"];
+            // console.log(rate);
+            $('#rate').text(`원-달러 환율: ${rate}`)
+          },
+        });
+      })
     </script>
+    <script>
+      function order_complete() {
+        let name = $("#name").val();
+        let quantity = $("#quantity").val();
+        let address = $("#address").val();
+        let phone = $("#phone").val();
+        phone_regexp = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/;
 
-</head>
-
-<body>
-    <h1>jQuery + Ajax의 조합을 연습하자!</h1>
-
-    <hr />
-
-    <div class="question-box">
-        <h2>2. 서울시 OpenAPI(실시간 따릉기 현황)를 이용하기</h2>
-        <p>모든 위치의 따릉이 현황을 보여주세요</p>
-        <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
-        <button onclick="q1()">업데이트</button>
-        <table>
-            <thead>
-                <tr>
-                    <td>거치대 위치</td>
-                    <td>거치대 수</td>
-                    <td>현재 거치된 따릉이 수</td>
-                </tr>
-            </thead>
-            <tbody id="names-q1">
-                <tr>
-                    <td>102. 망원역 1번출구 앞</td>
-                    <td>22</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>103. 망원역 2번출구 앞</td>
-                    <td>16</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>104. 합정역 1번출구 앞</td>
-                    <td>16</td>
-                    <td>0</td>
-                </tr>
-            </tbody>
-        </table>
+        // console.log(name, quantity, address, phone);
+        if (name == "") {
+          alert("이름을 입력해주세요.");
+        } else if (quantity == "") {
+          alert("수량을 입력해주세요.");
+        } else if (address == "") {
+          alert("주소를 입력해주세요.");
+        } else if (phone == "") {
+          alert("휴대폰 번호를 입력해주세요.");
+        } else if (!phone_regexp.test(phone)) {
+          alert(
+            "양식에 맞지 않습니다. 양식에 맞게 입력해주세요 (000-0000-0000)."
+          );
+        } else {
+          alert("주문이 완료되었습니다.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrap_img">
+      <p>
+        <img
+          src="https://scontent-yyz1-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/77292977_117080836455375_1439864364669448641_n.jpg?_nc_ht=scontent-yyz1-1.cdninstagram.com&_nc_cat=103&_nc_ohc=f1YglaQItC0AX83iZzA&oh=a292b9b7935abbe19dd9fc1407a09bbe&oe=5ED39060"
+        />
+      </p>
     </div>
-</body>
+    <div class="wrap_form">
+      <p></p>
+      <h1 style="display: inline;">상품제목</h1>
+      <p style="display: inline;">가격: 40,000원 / 3kg</p>
+      <p>
+        양지머리는 소의 가슴살을 가리킨다. 소에게는 쇄골이 없기 때문에, 이
+        부위가 소가 이동하거나 서있을 때의 무게의 약 60%를 지탱한다. 때문에
+        양지머리에는 질긴 결합조직의 비중이 높으며, 오랜 시간에 걸쳐 연하게
+        만드는 것이 좋다. 브리스킷용 차돌양지 원육입니다. 최대한 큰 덩어리로
+        드리며 일부 비계는 직접 제거하셔야 합니다.
+      </p>
 
+      <p id='rate'></p>
+
+      <h1>주문하기</h1>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">주문자 성함:</label>
+        <div class="col-sm-5">
+          <input id="name" type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">수량:</label>
+
+        <div class="col-sm-5">
+          <select id="quantity" class="form-control" id="colFormLabel">
+            <option selected></option>
+            <option value="1">3kg</option>
+            <option value="2">6kg</option>
+            <option value="3">9kg</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">주소:</label>
+        <div class="col-sm-5">
+          <input id="address" type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">전화번호:</label>
+        <div class="col-sm-5">
+          <input id="phone" type="text" class="form-control" />
+        </div>
+      </div>
+    </div>
+    <div class="wrap_submit">
+      <button onclick="order_complete()" type="submit" class="btn btn-primary">
+        주문하기
+      </button>
+    </div>
+  </body>
 </html>
