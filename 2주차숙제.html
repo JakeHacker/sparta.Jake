@@ -49,7 +49,7 @@
             padding: 20px;
         }
 
-        .rate_style{
+        .rate_style {
             text-align: left;
             color: red;
         }
@@ -76,20 +76,20 @@
         }
     </script>
 
-<script>
-    $(document).ready(function() {
-      $.ajax({
-        type: "GET",
-        url:"https://api.manana.kr/exchange/rate.json",
-        data: {},
-        success: function(response) {
-          let rate = response[1]["rate"];
-          // console.log(rate);
-          $('#rate').text(`원-달러 환율: ${rate}`)
-        },
-      });
-    })
-  </script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    let rate = response[1]["rate"];
+                    // console.log(rate);
+                    $('#rate').text(`원-달러 환율: ${rate}`)
+                },
+            });
+        })
+    </script>
 
 </head>
 
@@ -104,17 +104,17 @@
             <h1>화려한 조명이 나를 감싸네</h1>
             <h5>가격 : 무료 / 1일1깡</h5>
             <p>
-                <p> 비 형은 하고싶은 거 다하고 사네 :) </p>
-                <p> 가랑이를 잡았나요?(O)</p>
-                <p> 꾸러기 표정을 지었나요?(O)</p>
+            <p> 비 형은 하고싶은 거 다하고 사네 :) </p>
+            <p> 가랑이를 잡았나요?(O)</p>
+            <p> 꾸러기 표정을 지었나요?(O)</p>
             </p>
         </div>
 
         <div class="rate_style">
-        <p id='rate'></p>
+            <p id='rate'></p>
         </div>
 
-<div class="input-group mb-3">
+        <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">주문자 이름</span>
             </div>
